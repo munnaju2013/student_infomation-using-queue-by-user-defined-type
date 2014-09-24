@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace student_Information_using_Queue.app
+{
+    public partial class StudentInformationUI : Form
+    {
+        public StudentInformationUI()
+        {
+            InitializeComponent();
+        }
+
+        Queue<student> studentList = new Queue<student>();
+ 
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            student aStudent = new student();
+            aStudent.regNo = regNoTextBox.Text;
+            aStudent.firstName = firstNameTextBox.Text;
+            aStudent.lastName = lastNameTextBox.Text;
+            studentList.Enqueue(aStudent);
+
+            regNoTextBox.Text =String.Empty;
+            firstNameTextBox.Text =String.Empty;
+            lastNameTextBox.Text =String.Empty;
+
+            MessageBox.Show("Saved successfully.......");
+        }
+
+        private void showAllButton_Click(object sender, EventArgs e)
+        {
+            string msg = "RegNo\tFull Name \n";
+            foreach (student mStudent in studentList)
+            {
+                msg += mStudent.regNo + "\t" + mStudent.GetFullName() + "\n";
+            }
+            MessageBox.Show(msg);
+        }
+
+     
+    }
+}
+
+
+//////////////student class/////////////////
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace student_Information_using_Queue.app
+{
+    class student
+    {
+        public string regNo;
+        public string firstName;
+        public string lastName;
+
+        public string GetFullName()
+        {
+            return firstName + " " + lastName;
+        }
+    }
+}
